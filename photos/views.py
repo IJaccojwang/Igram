@@ -71,11 +71,11 @@ def edit(request):
             if form.is_valid():
                 profile=form.save(commit=False)
                 bio=form.cleaned_data['bio']
-                pic=form.cleaned_data['profilepic']
+                profilepic=form.cleaned_data['profilepic']
                 update=Profile.objects.filter(userId=current_user_id).update(bio=bio,profilepic=profilepic)
                 profile.userId=current_user_id
                 profile.save(update)
-            return redirect("profile")
+            return redirect('myprofile')
         else:
 
             form=EditProfile()
@@ -124,9 +124,9 @@ def comments(request,image_id):
     return render(request,"comment.html",{"images":image,'form':form,"comments":comment,"count":count,"forms":forms})
 
 @login_required(login_url="/accounts/login/")
-def search(request):
+def profile(request):
     pass
 
 @login_required(login_url="/accounts/login/")
-def profile(request):
+def search(request):
     pass
