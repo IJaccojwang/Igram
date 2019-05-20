@@ -124,8 +124,34 @@ def comments(request,image_id):
     return render(request,"comment.html",{"images":image,'form':form,"comments":comment,"count":count,"forms":forms})
 
 @login_required(login_url="/accounts/login/")
-def profile(request):
-    pass
+def profile(request,user_id):
+    try:
+        profile_image=Profile.objects.filter(userId=user_id).all()
+        profile=profile_image.reverse()[0:1]
+        profile_photos=Image.objects.filter(userId=user_id)
+        users=User.objects.filter(id=user_id).all()
+        follower=Followers.objects.filter(user_id=user_id)
+        all=len(follower)
+    except Exception as e:
+        raise Http404()
+
+    if request.method=='POST':
+        insta=request.user
+        current=request.POST.get('current','')
+        id=int(current)
+        form=FollowForm(request.POST)
+        if form.is_valid():
+            followers=form.save(commit=False)
+            followers.insta=insta
+            followers.user=request.user.id
+            followers.user_id=id
+
+            followers.save()
+            return redirect('users',user_id)
+
+    else:
+        form=FollowForm()
+    return render(request,"user.html",{"users":users,'profile':profile_photos,"pic":profile,"form":form,"all":all})
 
 @login_required(login_url="/accounts/login/")
 def search(request):
