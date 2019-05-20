@@ -72,7 +72,7 @@ def edit(request):
                 profile=form.save(commit=False)
                 bio=form.cleaned_data['bio']
                 profilepic=form.cleaned_data['profilepic']
-                update=Profile.objects.filter(userId=current_user_id).update(bio=bio,profilepic=profilepic)
+                update=Profile.objects.filter(id=current_user_id).update(bio=bio,profilepic=profilepic)
                 profile.userId=current_user_id
                 profile.save(update)
             return redirect('myprofile')
