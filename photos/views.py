@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 import datetime as dt
-from .models import Image
+from .models import Image, Profile, Comments, Followers
 from django.contrib.auth.decorators import login_required
 from .forms import NewImageForm
+from django.contrib.auth.models import User
 
 @login_required(login_url='/accounts/login/')
 def home(request):
@@ -18,7 +19,7 @@ def home(request):
     images2 = Image.all_images()[row:row*2]
     images3 = Image.all_images()[row*2:row*3]
     images4 = Image.all_images()[row*3:row*4]
-    return render(request, 'home.html', {"images": images, "images1": images1, "images2": images2, "images3": images3, "images4": images4, ,"profile":profile,"users":users,"comments":comments})
+    return render(request, 'home.html', {"images": images, "images1": images1, "images2": images2, "images3": images3, "images4": images4,"profile":profile,"users":users,"comments":comments})
 
 @login_required(login_url='/accounts/login/')
 def upload(request):
@@ -48,3 +49,14 @@ def myprofile(request):
 
     return render(request,"profile.html",{'profile':profile_photos,"pic":profile})
 
+@login_required(login_url="/accounts/login/")
+def edit(request):
+    pass
+
+@login_required(login_url="/accounts/login/")
+def profile(request):
+    pass
+
+@login_required(login_url="/accounts/login/")
+def search(request):
+    pass

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Image(models.Model):
     '''
@@ -47,3 +48,14 @@ class Followers(models.Model):
     user=models.CharField(max_length=30)
     insta=models.CharField(default='',max_length=30)
     user_id=models.IntegerField()
+
+class Profile(models.Model):
+    profilepic=models.ImageField(upload_to='profile/',blank=True)
+    bio=models.CharField(max_length=30)
+    userId=models.IntegerField()
+
+
+    def __str__(self):
+        return self.bio
+
+    
