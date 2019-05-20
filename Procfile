@@ -1,0 +1,1 @@
+web: gunicorn picshare.wsgi --log-file -
