@@ -8,6 +8,9 @@ class Image(models.Model):
     name = models.CharField(max_length=60)
     description = models.CharField(max_length=300, blank = True)
     post_date = models.DateTimeField(auto_now_add=True)
+    likes=models.IntegerField(default=0)
+    userId=models.IntegerField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -34,3 +37,13 @@ class Image(models.Model):
         '''
         images = cls.objects.all()
         return images
+
+class Comments(models.Model):
+    comment=models.TextField(max_length=50)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    images=models.IntegerField()
+
+class Followers(models.Model):
+    user=models.CharField(max_length=30)
+    insta=models.CharField(default='',max_length=30)
+    user_id=models.IntegerField()
