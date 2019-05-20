@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 import datetime as dt
 from .models import Image, Profile, Comments, Followers
 from django.contrib.auth.decorators import login_required
-from .forms import NewImageForm
+from .forms import NewImageForm, EditProfile,UpdateProfile,CommentForm,Likes,FollowForm
 from django.contrib.auth.models import User
 
 @login_required(login_url='/accounts/login/')
@@ -83,9 +83,50 @@ def edit(request):
             return render(request,"edit.html",{"form":form})
 
 @login_required(login_url="/accounts/login/")
-def profile(request):
-    pass
+def comments(request,image_id):
+    try:
+        image=Image.objects.filter(id=image_id).all()
+        comment=Comments.objects.filter(images=image_id).all()
+    except Exception as e:
+        raise  Http404()
+
+    imag=Image.objects.filter(id=image_id).all()
+    # a=imag[4]
+    count=0
+    for i in imag:
+        count+=i.likes
+
+    if request.method=='POST':
+        form=Likes(request.POST)
+        k=request.POST.get("like","")
+        if k:
+
+            like=int(k)
+            if form.is_valid:
+                likes=form.save(commit=False)
+                all=count+like
+                Image.objects.filter(id=image_id).update(likes=all)
+                return redirect('comment',image_id)
+    else:
+        forms=Likes()
+    if request.method=='POST':
+        current_user=request.user
+        i=request.POST.get("id","")
+        form=CommentForm(request.POST)
+        if form.is_valid:
+            comments=form.save(commit=False)
+            comments.user=current_user
+            comments.images=i
+            comments.save()
+            return redirect('comment',image_id)
+    else:
+        form=CommentForm()
+    return render(request,"comment.html",{"images":image,'form':form,"comments":comment,"count":count,"forms":forms})
 
 @login_required(login_url="/accounts/login/")
 def search(request):
+    pass
+
+@login_required(login_url="/accounts/login/")
+def profile(request):
     pass
