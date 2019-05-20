@@ -6,7 +6,7 @@ from django.forms import ModelForm, Textarea, IntegerField
 class NewImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ['']
+        exclude = ['likes', 'userId', 'user']
 
 class EditProfile(forms.ModelForm):
     class Meta:

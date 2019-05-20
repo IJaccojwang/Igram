@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 def home(request):
     current_user=request.user.id
     images = Image.all_images()
-    profile_image=Profile.objects.filter(userId=current_user)
+    profile_image=Profile.objects.filter(id=current_user)
     profile=profile_image.reverse()[0:1]
     comments=Comments.objects.all()
     users=User.objects.all().exclude(id=request.user.id)
@@ -52,7 +52,7 @@ def myprofile(request):
 @login_required(login_url="/accounts/login/")
 def edit(request):
     current_user_id=request.user.id
-    profile=Profile.objects.filter(userId=current_user_id)
+    profile=Profile.objects.filter(id=current_user_id)
     if len(profile)<1:
 
         if request.method=='POST':
