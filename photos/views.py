@@ -7,13 +7,18 @@ from .forms import NewImageForm
 
 @login_required(login_url='/accounts/login/')
 def home(request):
+    current_user=request.user.id
     images = Image.all_images()
+    profile_image=Profile.objects.filter(userId=current_user)
+    profile=profile_image.reverse()[0:1]
+    comments=Comments.objects.all()
+    users=User.objects.all().exclude(id=request.user.id)
     row = round(len(images)/4)
     images1 = Image.all_images()[0:row]
     images2 = Image.all_images()[row:row*2]
     images3 = Image.all_images()[row*2:row*3]
     images4 = Image.all_images()[row*3:row*4]
-    return render(request, 'home.html', {"images": images, "images1": images1, "images2": images2, "images3": images3, "images4": images4})
+    return render(request, 'home.html', {"images": images, "images1": images1, "images2": images2, "images3": images3, "images4": images4, ,"profile":profile,"users":users,"comments":comments})
 
 @login_required(login_url='/accounts/login/')
 def upload(request):
@@ -29,3 +34,17 @@ def upload(request):
     else:
         form = NewImageForm()
     return render(request, 'upload.html', {"form": form})
+
+@login_required(login_url="/accounts/login/")
+def myprofile(request):
+    try:
+        current_user=request.user.id
+        profile_photos=Image.objects.filter(userId=current_user)
+        profile_image=Profile.objects.filter(userId=current_user).all()
+        profile=profile_image.reverse()[0:1]
+
+    except Exception as e:
+        raise Http404()
+
+    return render(request,"profile.html",{'profile':profile_photos,"pic":profile})
+
