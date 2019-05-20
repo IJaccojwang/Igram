@@ -1,0 +1,56 @@
+{%extends 'base.html'%}
+
+{%load bootstrap3%}
+{%block content%}
+
+<div  class="container prof">
+  <br><br>
+  <div class="row">
+    <div class="col-md-1"> </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid rounded-circle" src="/static/img/baby.jpg" alt="profile">
+        </div>
+        <div class="col-md-8">
+          <div class=" idea">
+            
+          </div>
+
+
+
+        </div>
+
+      </div>
+      <br>
+      <hr class="info">
+      <div class="tags">
+        <a href="#"><i class="far fa-newspaper"></i> Upload Pics for your friends to see</a>
+      </div>
+      <br>
+      <div class="uploads">
+        <form class="form-group" action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
+          <h3>Instagram share photos</h3>
+          {%csrf_token%}
+          {%bootstrap_form form%}
+
+          <button id="makeUpload" class="btn btn-info" type="submit" name="button">Upload</button>
+
+        </form>
+
+
+
+
+      </div>
+
+
+
+     </div>
+    <div class="col-md-1"> </div>
+
+  </div>
+
+
+
+</div>
+{% endblock %}
