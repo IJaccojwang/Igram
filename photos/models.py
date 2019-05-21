@@ -49,11 +49,14 @@ class Comments(models.Model):
     images=models.IntegerField()
 
 class Followers(models.Model):
-    user=models.CharField(max_length=30)
-    insta=models.CharField(default='',max_length=30)
-    user_id=models.IntegerField()
-    def save_followers(self):
-        self.save()
+	user = models.CharField(max_length=20, default="")
+	follower = models.CharField(max_length=20, default="")
+    
+
+
+class PhotoLikes(models.Model):
+	postid = models.IntegerField()
+	liker = models.CharField(max_length=20)
 
 class Profile(models.Model):
     pic=models.ImageField(upload_to='profile/',blank=True)

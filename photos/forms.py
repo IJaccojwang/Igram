@@ -26,7 +26,7 @@ class CommentForm(forms.ModelForm):
 class Likes(forms.ModelForm):
     class Meta:
         model=Image
-        exclude=['likes','comments','date','user','userId','profile','image','name','caption']
+        exclude=['likes','description','comments','date','user','userId','profile','image','name','caption']
 
 class FollowForm(forms.ModelForm):
     class Meta:
