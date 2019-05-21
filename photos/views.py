@@ -130,7 +130,7 @@ def comments(request,image_id):
 def profile(request,user_id):
     current_user=request.user
     posts = len(Image.objects.filter(userId=user_id))
-    profile_image=Profile.objects.filter(userId=user_id).all()
+    profile_image=Profile.objects.filter(userId=user_id)
     profile=profile_image.reverse()[0:1]
     profile_photos=Image.objects.filter(userId=user_id)
     users=User.objects.filter(id=user_id).all()
