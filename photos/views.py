@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 import datetime as dt
-from .models import Image, Profile, Comments, Followers
+from django.db.models import F
+from .models import Image, Profile, Comments, Followers, PhotoLikes
 from django.contrib.auth.decorators import login_required
 from .forms import NewImageForm, EditProfile,UpdateProfile,CommentForm,Likes,FollowForm
 from django.contrib.auth.models import User
@@ -15,11 +16,7 @@ def home(request):
     comments=Comments.objects.all()
     users=User.objects.all().exclude(id=request.user.id)
     row = round(len(images)/4)
-    images1 = Image.all_images()[0:row]
-    images2 = Image.all_images()[row:row*2]
-    images3 = Image.all_images()[row*2:row*3]
-    images4 = Image.all_images()[row*3:row*4]
-    return render(request, 'home.html', {"images": images, "images1": images1, "images2": images2, "images3": images3, "images4": images4,"profile":profile,"users":users,"comments":comments})
+    return render(request, 'home.html', {"images": images,"profile":profile,"users":users,"comments":comments})
 
 @login_required(login_url='/accounts/login/')
 def upload(request):
@@ -101,12 +98,17 @@ def comments(request,image_id):
         form=Likes(request.POST)
         k=request.POST.get("like","")
         if k:
-
-            like=int(k)
             if form.is_valid:
                 likes=form.save(commit=False)
-                all=count+like
-                Image.objects.filter(id=image_id).update(likes=all)
+                current_user=request.user
+                postid=image_id
+                if not PhotoLikes.objects.filter(liker=current_user, postid=postid).exists():
+                    Image.objects.filter(id=postid).update(likes=F('likes')+1)
+                    like = PhotoLikes(postid=postid, liker=current_user)
+                    like.save()
+                else:
+                    Image.objects.filter(id=postid).update(likes=F('likes')-1)
+                    PhotoLikes.objects.filter(postid=postid, liker=current_user).delete()
                 return redirect('comment',image_id)
     else:
         forms=Likes()
