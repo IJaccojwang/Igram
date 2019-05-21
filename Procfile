@@ -1,1 +1,1 @@
-web: gunicorn picshare.wsgi --log-file -
+web: gunicorn igram.wsgi --log-file -
