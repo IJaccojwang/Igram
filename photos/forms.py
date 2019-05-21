@@ -11,12 +11,12 @@ class NewImageForm(forms.ModelForm):
 class EditProfile(forms.ModelForm):
     class Meta:
         model=Profile
-        exclude=['']
+        exclude=['userId']
 
 class UpdateProfile(forms.ModelForm):
     class Meta:
         model=Profile
-        exclude=['']
+        exclude=['userId']
 
 class CommentForm(forms.ModelForm):
     class Meta:
