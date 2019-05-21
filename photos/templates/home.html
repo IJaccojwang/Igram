@@ -14,7 +14,6 @@
        {% for image in images %}
         <div class="card">
             <div class="card-header">
-             <img height="35px" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle" alt="avatar">
               <span>{{image.user}}</span>
             </div>
             <div class="card-">
@@ -27,8 +26,8 @@
             <div class="card-footer">
                 <div>
                     <i class="far fa-heart"></i>
-                    <a href="/image/comment/{{image.id}}"><i class="far fa-comment"></i></a>
                     <i class="fas fa-share-alt-square"></i>
+                    <a href="/image/comment/{{image.id}}"><i class="far fa-comment">Add Comment</i></a>
                 </div>
               <div>
                 <i>{{image.likes}} likes</i>
