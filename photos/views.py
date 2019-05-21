@@ -24,11 +24,14 @@ def home(request):
 @login_required(login_url='/accounts/login/')
 def upload(request):
     current_user = request.user
+    current_user_id=request.user.id
     if request.method == 'POST':
         form = NewImageForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
+            image.userId=current_user_id
+            image.profile=current_user_id
             image.save()
         return redirect('home')
 
@@ -52,7 +55,7 @@ def myprofile(request):
 @login_required(login_url="/accounts/login/")
 def edit(request):
     current_user_id=request.user.id
-    profile=Profile.objects.filter(id=current_user_id)
+    profile=Profile.objects.filter(userId=current_user_id)
     if len(profile)<1:
 
         if request.method=='POST':
@@ -61,7 +64,7 @@ def edit(request):
                 profile=form.save(commit=False)
                 profile.userId=current_user_id
                 profile.save()
-            return redirect("profile")
+            return redirect("myprofile")
         else:
             form=EditProfile()
             return render(request,"edit.html",{"form":form})
@@ -71,17 +74,16 @@ def edit(request):
             if form.is_valid():
                 profile=form.save(commit=False)
                 bio=form.cleaned_data['bio']
-                profilepic=form.cleaned_data['profilepic']
-                update=Profile.objects.filter(id=current_user_id).update(bio=bio,profilepic=profilepic)
+                pic=form.cleaned_data['pic']
+                update=Profile.objects.filter(userId=current_user_id).update(bio=bio,pic=pic)
                 profile.userId=current_user_id
                 profile.save(update)
-            return redirect('myprofile')
+            return redirect("profile")
         else:
 
             form=EditProfile()
-
             return render(request,"edit.html",{"form":form})
-
+            
 @login_required(login_url="/accounts/login/")
 def comments(request,image_id):
     try:
@@ -91,7 +93,6 @@ def comments(request,image_id):
         raise  Http404()
 
     imag=Image.objects.filter(id=image_id).all()
-    # a=imag[4]
     count=0
     for i in imag:
         count+=i.likes
@@ -155,4 +156,13 @@ def profile(request,user_id):
 
 @login_required(login_url="/accounts/login/")
 def search(request):
-    pass
+    if 'user' in request.GET and request.GET["user"]:
+        search_term = request.GET.get("user")
+        images= Image.search_by_users(search_term)
+        message = f"{search_term}"
+        
+        return render(request,'search.html',{"message":message,"images":images})
+
+    else:
+        message="You haven't searched for any user"
+        return render(request,'search.html',{"message":message})
