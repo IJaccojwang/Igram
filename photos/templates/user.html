@@ -30,14 +30,23 @@
               {%csrf_token%}
               {%bootstrap_form form%}
               <input type="hidden" name="current" value="{{user.id}}">
-              <button type="submit" class="btn profile-edit-btn">Follow </button><span id="close">{{all}} Followers</span>
+              <button type="submit" class="btn profile-edit-btn">{{following}}</button><span id="close"></span>
 
             </form>
             {%endfor%}
 					
 	
 	
-				</div>
+        </div>
+        
+        <div class="profile-stats">
+
+            <ul>
+              <li><span class="profile-stat-count">{{posts}}</span> posts</li>
+              <li><span class="profile-stat-count">{{all}}</span> followers</li>
+            </ul>
+    
+          </div>
 				
 	
 				<div class="profile-bio">
