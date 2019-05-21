@@ -26,7 +26,7 @@ class TestProfile(TestCase):
 class TestImage(TestCase):
     def setUp(self):
         self.comment=Comments(images=1,comment='this is dope')
-        self.follow=Followers(user="profile",insta='like',user_id=1)
+        self.follow=Followers(user="profile",follower='like')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.comment,Comments))
