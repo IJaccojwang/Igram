@@ -23,13 +23,17 @@
           </div>
           <div class="card-footer">
               <div>
-                  <i class="far fa-heart"></i>
-                  <a href="/image/comment/{{image.id}}"><i class="far fa-comment"></i></a>
-                  <i class="fas fa-share-alt-square"></i>
+                  
+                  <form class="form-inline" action="/image/comment/{{image.id}}/" method="post">
+                    {%csrf_token%}
+                    {%bootstrap_form forms%}
+    
+                    <input type="hidden" name="like" value="1">
+                    <button class="btn-danger" type="submit" name="button"><i   class="far  fa-heart"><i> {{image.likes}}</i></i></button>
+                    <button class="btn-elegant"><a href="/image/comment/{{image.id}}"><i class="far fa-comment"></i></a></button>
+                    
+                  </form>
               </div>
-            <div>
-              <i>{{image.likes}} likes</i>
-            </div>
             <div>
               <i>{{image.post_date}} </i>
             </div>
