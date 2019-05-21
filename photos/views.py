@@ -161,7 +161,7 @@ def profile(request,user_id):
 
     else:
         form=FollowForm()
-    return render(request,"user.html",{"users":users,'profile':profile_photos,"pic":profile,"form":form,"all":all, "following":following, "posts":posts, "fol":fol})
+    return render(request,"user.html",{"users":users,'profile':profile_photos,"pic":profile,"form":form,"all":all, "following":following, "posts":posts})
 
 @login_required(login_url="/accounts/login/")
 def search(request):
