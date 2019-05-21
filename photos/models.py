@@ -11,6 +11,7 @@ class Image(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
     likes=models.IntegerField(default=0)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    userId=models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -37,6 +38,10 @@ class Image(models.Model):
         '''
         images = cls.objects.all()
         return images
+    @classmethod
+    def search_by_users(cls,term):
+        result=cls.objects.filter(user__username__icontains=term)
+        return result
 
 class Comments(models.Model):
     comment=models.TextField(max_length=50)
@@ -46,14 +51,30 @@ class Comments(models.Model):
 class Followers(models.Model):
     user=models.CharField(max_length=30)
     insta=models.CharField(default='',max_length=30)
+    user_id=models.IntegerField()
+    def save_followers(self):
+        self.save()
 
 class Profile(models.Model):
-    profilepic=models.ImageField(upload_to='profile/',blank=True)
+    pic=models.ImageField(upload_to='profile/',blank=True)
     bio=models.CharField(max_length=30)
-
+    userId=models.IntegerField()
 
 
     def __str__(self):
-        return self.bio
+        return self.userId
+
+    class Meta:
+        ordering=['pic']
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        profile=Profile.objects.all().delete()
+        return profile
+    
+
+    
 
     
