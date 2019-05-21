@@ -11,7 +11,7 @@
           <div class="card">
             <div class="card-body">
                 <div>
-                    <form class="form-group" action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
+                    <form class="form-group" action="{%url 'edit'%}" method="post" enctype="multipart/form-data">
                       <h3>Edit your profile</h3>
                       {%csrf_token%}
                       {%bootstrap_form form%}

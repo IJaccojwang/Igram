@@ -1,153 +1,75 @@
-{% block styles %}
-{% load static%}
+{% extends 'base.html' %}
 
+{% block styles %}
+{{block.super}}
+{% load static%}
 <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 {%block content%}
 <header>
 
-	<div class="container">
-
-		<div class="profile">
-
-			<div class="profile-image">
-
-				<img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
-
-			</div>
-
-			<div class="profile-user-settings">
-
-				<h1 class="profile-user-name">janedoe_</h1>
-
-				<a href="{%url 'edit'%}"><button class="btn profile-edit-btn" >Edit Profile</button></a>
-
-				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-
-			</div>
-
-			<div class="profile-stats">
-
-				<ul>
-					<li><span class="profile-stat-count">164</span> posts</li>
-					<li><span class="profile-stat-count">188</span> followers</li>
-					<li><span class="profile-stat-count">206</span> following</li>
-				</ul>
-
-			</div>
-
-			<div class="profile-bio">
-
-				<p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
-
-			</div>
-
-		</div>
-		<!-- End of profile section -->
-
-	</div>
-	<!-- End of container -->
-
-</header>
-
-<main>
-
-	<div class="container">
-
-		<div class="gallery">
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://www.w3schools.com/w3css/img_lights.jpg" class="gallery-image" alt="">
-
-				<div class="gallery-item-info">
-
-					<ul>
-						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
-						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
-					</ul>
-
+		<div class="container">
+	
+			<div class="profile">
+	
+				<div class="profile-image">
+						{%for i in pic%}
+						<img class="img-fluid rounded-circle" src="{{i.pic.url}}" alt="profile">
+						{%endfor%}
+	
+					
+	
 				</div>
-
-			</div>			
-
+	
+				<div class="profile-user-settings">
+	
+					<h1 class="profile-user-name">janedoe_</h1>
+	
+					<a href="{%url 'edit'%}"><button class="btn profile-edit-btn">Edit Profile</button></a>
+	
+					<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+	
+				</div>
+	
+	
+				<div class="profile-bio">
+	
+					<p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+	
+				</div>
+	
+			</div>
+			<!-- End of profile section -->
+	
 		</div>
-		<!-- End of gallery -->
-
-		
-
-	</div>
-	<!-- End of container -->
-
-</main>
-<div  class="container prof">
-  <br><br>
-  <div class="row">
-    <div class="col-md-1"> </div>
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-md-4">
-          {%for i in pic%}
-          <img class="img-fluid rounded-circle" src="{{i.pic.url}}" alt="profile">
-          {%endfor%}
-        </div>
-        <div class="col-md-8">
-          <div class=" idea">
-
-            <a>{{user}}</a> <a href="{%url 'edit'%}"> <button type="button" class="btn btn-light">Edit Profile</button></a><a id="prompt"<i class="fas fa-cog fa-spin"></i></a>
-
-          </div>
-
-          {%for i in pic%}
-          <p>This is is your status</p>
-          <p>{{i.bio}}</p>
-          {%endfor%}
-
-
-
-
-        </div>
-
-      </div>
-      <br>
-      <hr class="info">
-      <div class="tags">
-        <a href="#"><i class="far fa-newspaper"></i> Posts</a><a href="#"><i class="far fa-newspaper"></i> Saved</a>
-      </div>
-     </div>
-    <div class="col-md-1"> </div>
-
-  </div>
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-8">
-      <div class="row">
-        {%if profile%}
-        {%for photo in profile%}
-        <div class="col-md-6">
-          <div class="image">
-          <a href="/stories/comment/{{photo.id}}"><img class="img-fluid" src="{{photo.image.url}}" alt=""></a>
-            </div>
-          </div>
-
-        {%endfor%}
-        {%else%}
-        <div class="alert">
-          <p class="animated fadeIn alert alert-info">You have not posted any Pictures <br>
-          <a href="{%url 'upload'%}">Get started</a></p>
-
-        </div>
-        {%endif%}
-
-      </div>
-    </div>
-    <div class="col-md-1"></div>
-
-  </div>
-
-
-
-
-</div>
+		<!-- End of container -->
+	
+	</header>
+	
+	<main>
+	
+		<div class="container">
+	
+			<div class="gallery">
+					{%for photo in profile%}
+				<div class="gallery-item" tabindex="0">
+	
+					<img src="{{photo.image.url}}" class="gallery-image" alt="">
+	
+					<div class="gallery-item-info">
+	
+						<ul>
+							<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> LIKES</li>
+							<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> COMMENTS</li>
+						</ul>
+	
+					</div>
+	
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	
+	</main>
 {%endblock%}
