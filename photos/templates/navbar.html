@@ -7,7 +7,7 @@
 </head>
 <body>
 <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-light">
+<nav class="mb-1 navbar navbar-expand-lg navbar-light sticky-top">
     <a  id="icons" class=" navbar-brand" href="{%url 'home'%}"><i class="fab fa-instagram"></i> <i style="border-left:1px solid rgba(0,0,0,0.4);"> </i> <i class="space"></i>  Instagram </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
       aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-default"
             aria-labelledby="navbarDropdownMenuLink-333">
-            <a class="dropdown-item" href="{%url 'myprofile'%}">View Profile</a>
+            <a class="dropdown-item" href="{%url 'myprofile'%}">My Profile</a>
             <a class="dropdown-item" href="/accounts/logout">Logout</a>
             <a href="/accounts/password/change">Change Password</a>
           </div>

@@ -14,6 +14,7 @@
 			<div class="profile">
 	
 				<div class="profile-image">
+						{% if pic %}
 						{%for i in pic%}
 						<img class="img-fluid rounded-circle" src="{{i.pic.url}}" alt="profile">
 						
@@ -37,6 +38,14 @@
 	
 				</div>
 				{%endfor%}
+				{%else%}
+				<div class="alert">
+				<p class="animated fadeIn alert alert-info">Update profile first <br>
+				<a href="{%url 'edit'%}"><button class="btn profile-edit-btn">Edit Profile</button></a>
+				</p>
+
+        		</div>
+        		{%endif%}
 			</div>
 			<!-- End of profile section -->
 	
@@ -50,6 +59,7 @@
 		<div class="container">
 	
 			<div class="gallery">
+					{% if profile %}
 					{%for photo in profile%}
 				<div class="gallery-item" tabindex="0">
 	
@@ -66,6 +76,12 @@
 	
 				</div>
 				{% endfor %}
+				{%else%}
+        		<div class="alert">
+          			<p class="animated fadeIn alert alert-info">Upload photos <br>
+        			</p>
+        		</div>
+        {%endif%}
 			</div>
 		</div>
 	
