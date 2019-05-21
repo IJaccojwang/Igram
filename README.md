@@ -1,17 +1,20 @@
-Picshare
+IGRAM
 ===================
 ## Description
-Picshare is anweb application that has pictures for users o view. One can add pictures through the admin section and search for pictures as well.
+Igram is a web application that has pictures for users to view. It is a clone of popular photo sharing service instagram with a personal touch.
 
 ------------------------------------------------------------------------
 
 
 ## Features
 
-+ [x] Photos gallery with most recent additions featured.
-+ [x] Copying image links to share with friends.
-+ [x] search functionality for users.
-+ [x] Django admin dashboard for adding & managing posts.
++ [x] Photos feed with pictures recently added.
++ [x] Liking of images.
++ [x] Commenting on images.
++ [x] Following users.
++ [x] Viewing user profiles: Profile picture and bio
++ [x] User authentication system: login and sign up.
++ [x] Django admin dashboard for site management.
 
 
 
@@ -24,7 +27,7 @@ This project was created on a debian linux platform but should work on other uni
 
 ### Cloning the repository
 ```bash
-git clone https://github.com/IJaccojwang/picshare.git && cd insta-clonewars
+git clone https://github.com/IJaccojwang/igram.git && cd insta-clonewars
 ```
 
 ### Creating a virtual environment
@@ -74,7 +77,7 @@ python manage.py test
 ## Live Demo
 
 The web app can be accessed from the following link:
-[Picshare](https://ijpicshare.herokuapp.com/)
+[Igram](https://igram.herokuapp.com/)
 
 
 ## Technology used
@@ -87,16 +90,17 @@ The web app can be accessed from the following link:
 
 | Behaviour |  Sample Input | Sample Output |
 | :---------------- | :---------------: | :------------------ |
-| View Images | On site load | All images displayed |
-| View Categories | Click on category | List of categories is displayed |
-| Add new image | Submit in admin page| View image on home page|
-| Search for image | Submit search form | View images that meet search criteria|
+| View Images | On sign in | All images displayed |
+| View User profile | Click on User you want to view | User profile info displayed |
+| Upload image | Submit new image upload form| Image uploaded, view on feed|
+| Like image | Click like button | Number of likes on image increases|
+| Comment on image | Submit comment | Comment recorded under image page|
 
 
 
 ## Contributing
 
-- Git clone [https://github.com/IJaccojwang/picshare.git](https://github.com/IJaccojwang/picshare.git)
+- Git clone [https://github.com/IJaccojwang/igram.git](https://github.com/IJaccojwang/igram.git)
 - Make the changes.
 - Write your tests.
 - If everything is OK. push your changes and make a pull request.
